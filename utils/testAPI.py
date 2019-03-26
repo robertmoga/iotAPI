@@ -58,9 +58,24 @@ def create_user():
     response = requests.post("http://127.0.0.1:5000/register", json=json_data)
     print(">>  Resp : " + str(response))
 
+def test_login():
+    json_data = {"username":"admin", "password":"megadeth96"}
+    response = requests.post("http://127.0.0.1:5000/login", json=json_data)
+    print(">> resp : " + str(response))
+    import json
+    bearer= json.loads(response.text)['token']
+    print(">> resp : " + str(bearer))
+
+    header = {'x-access-token': bearer}
+    resp = requests.get("http://127.0.0.1:5000/roomtemp", headers=header)
+    print(">> Raspuns : " + str(resp.text))
+
 
 if __name__ == "__main__":
     # test_request_multipart()
     # test_image2nuparray()
     # test_request_json()
-    create_user()
+    # create_user()
+    test_login()
+    import datetime
+    # print(datetime.datetime.utcnow())

@@ -1,5 +1,6 @@
 from datetime import datetime
 
+# TODO check if log file exist, if not create one
 class Logger(object):
     """
         Standard output logger. It is designed to display debug messages, if the

@@ -5,21 +5,24 @@ from .user_auth import token_required
 
 iotAPI = blueprints.Blueprint('iot', __name__)
 PIR_ACTIVE = False
+
 '''
     Room temperature endpoints
 '''
 
 @iotAPI.route('/roomtemp', methods=['GET'])
 @token_required
-def get_room_temperature():
+def get_room_temperature(current_user):
     # get from database the last output
+    print(str(current_user.username) + " requested timeseries")
     print (request)
     return jsonify({"timestamp:": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     "temperature": 25.5})
 
 
 @iotAPI.route('/roomtemp', methods=['POST'])
-def post_room_temperature():
+def post_room_temperature(current_user):
+    # print(str(current_user.username) + " requested timeseries")
     return jsonify({"message:": "Successful"})
 
 
