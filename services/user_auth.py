@@ -1,10 +1,12 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import request, jsonify
+from flask import request, jsonify, blueprints
 from functools import wraps
 import jwt
-from database_controller import User
+import uuid
+from database_controller import User, db
 
 SECRET_KEY = "thisissecret"
+loginService = blueprints.Blueprint('loginService', __name__)
 
 
 def token_required(f):
@@ -30,6 +32,26 @@ def token_required(f):
 
     return decorated
 
+
+@loginService.route('/login')
+def login():
+    pass
+
+
+@loginService.route('/register', methods=['POST'])
+def register():
+    print(">> Ednpoint accessed")
+    data = request.get_json()
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+
+    new_user = User(id=str(uuid.uuid4()), username=data['username'], password=hashed_password)
+    print(">> new USER created : " + str(new_user))
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({"message": "New user created successfully"})
+
 # build login function for query and return token
-# build a function to commit some users , see if it is possible
-# build db
+
+if __name__ == "__main__":
+    pass

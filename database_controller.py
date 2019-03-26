@@ -6,11 +6,11 @@ db = SQLAlchemy()
 
 class User(UserMixin, db.Model):
     id = db.Column(db.String(50), primary_key=True, unique=True)
-    username = db.Column(db.String(50))
+    username = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(80))
 
     def __str__(self):
-        return "[ USER : id: %s, username: %s, password: %s ]".format(self.id, self.username, self.password)
+        return "[ USER : id: {0}, username: {1}, password: {2} ]".format(self.id, self.username, self.password)
 
 
 class Timeseries(UserMixin, db.Model):
@@ -20,4 +20,4 @@ class Timeseries(UserMixin, db.Model):
     sensor_data = db.Column(db.Float)
 
     def __str__(self):
-        return "[ TIMESERIES : id: %s, sensor_id: %s, timestamp: %s, sensor_data: %s ]".format(self.id, self.sensor_id, self.timestamp, self.sensor_data)
+        return "[ TIMESERIES : id: {0}, sensor_id: {1}, timestamp: {2}, sensor_data: {3}]".format(self.id, self.sensor_id, self.timestamp, self.sensor_data)

@@ -49,12 +49,18 @@ def test_request_multipart():
 
 
 def test_request_json():
-    json_data={"sensor": "hue", "data": "array of values" }
+    json_data = {"sensor": "hue", "data": "array of values" }
     response = requests.post('http://127.0.0.1:5000/roomtemp', json=json_data)
     print(">> " + str(response))
+
+def create_user():
+    json_data = {"username": "admin", "password": "megadeth96"}
+    response = requests.post("http://127.0.0.1:5000/register", json=json_data)
+    print(">>  Resp : " + str(response))
 
 
 if __name__ == "__main__":
     # test_request_multipart()
     # test_image2nuparray()
-    test_request_json()
+    # test_request_json()
+    create_user()

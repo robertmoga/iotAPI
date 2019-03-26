@@ -1,6 +1,7 @@
 from flask import blueprints, redirect, request, jsonify
 import json, re, random, base64
 from datetime import datetime
+from .user_auth import token_required
 
 iotAPI = blueprints.Blueprint('iot', __name__)
 PIR_ACTIVE = False
@@ -9,6 +10,7 @@ PIR_ACTIVE = False
 '''
 
 @iotAPI.route('/roomtemp', methods=['GET'])
+@token_required
 def get_room_temperature():
     # get from database the last output
     print (request)
